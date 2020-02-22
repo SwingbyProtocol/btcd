@@ -93,6 +93,39 @@ func NewRenameAccountCmd(oldAccount, newAccount string) *RenameAccountCmd {
 	}
 }
 
+// ImportMulti
+
+// ImportMultiCmd defines the importmulti JSON-RPC command.
+// example: '[{ "scriptPubKey": { "address": "<my address>" }, "timestamp":1455191478 }]' '{ "rescan": false }'
+type ImportMultiCmd struct {
+	Requests []ImportMultiRequest
+	Options  ImportMultiOptions
+}
+
+type ImportMultiRequestScriptPubKey struct {
+	Address string `json:"address"`
+}
+
+type ImportMultiRequest struct {
+	ScriptPubKey ImportMultiRequestScriptPubKey `json:"scriptPubKey"`
+	Timestamp    *int64                         `json:"timestamp"`
+	WatchOnly    bool                           `json:"watchonly"`
+}
+
+type ImportMultiOptions struct {
+	Rescan bool `json:"rescan"`
+}
+
+// NewImportAddressCmd returns a new instance which can be used to issue an
+// importaddress JSON-RPC command.
+func NewImportMultiCmd(requests []ImportMultiRequest, rescan bool) (*ImportMultiCmd, error) {
+	options := ImportMultiOptions{rescan}
+	return &ImportMultiCmd{
+		Requests: requests,
+		Options:  options,
+	}, nil
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := UFWalletOnly
@@ -103,4 +136,5 @@ func init() {
 	MustRegisterCmd("importpubkey", (*ImportPubKeyCmd)(nil), flags)
 	MustRegisterCmd("importwallet", (*ImportWalletCmd)(nil), flags)
 	MustRegisterCmd("renameaccount", (*RenameAccountCmd)(nil), flags)
+	MustRegisterCmd("importmulti", (*ImportMultiCmd)(nil), flags)
 }

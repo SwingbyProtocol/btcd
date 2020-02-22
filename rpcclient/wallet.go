@@ -2097,10 +2097,29 @@ func (c *Client) ImportAddressRescanAsync(address string, account string, rescan
 	return c.sendCmd(cmd)
 }
 
-// ImportAddressRescan imports the passed public address. When rescan is true,
+// ImportAddressRescan imports the passed public addresses. When rescan is true,
 // the block history is scanned for transactions addressed to provided address.
 func (c *Client) ImportAddressRescan(address string, account string, rescan bool) error {
 	return c.ImportAddressRescanAsync(address, account, rescan).Receive()
+}
+
+// ImportMultiRescanAsync returns an instance of a type that can be used to get the
+// result of the RPC at some future time by invoking the Receive function on the
+// returned instance.
+//
+// See ImportAddress for the blocking version and more details.
+func (c *Client) ImportMultiRescanAsync(requests []btcjson.ImportMultiRequest, rescan bool) FutureImportAddressResult {
+	cmd, err := btcjson.NewImportMultiCmd(requests, rescan)
+	if err != nil {
+		panic(err)
+	}
+	return c.sendCmd(cmd)
+}
+
+// ImportMultiRescan imports the passed public addresses. When rescan is true,
+// the block history is scanned for transactions addressed to provided address.
+func (c *Client) ImportMultiRescan(requests []btcjson.ImportMultiRequest, rescan bool) error {
+	return c.ImportMultiRescanAsync(requests, rescan).Receive()
 }
 
 // FutureImportPrivKeyResult is a future promise to deliver the result of an
