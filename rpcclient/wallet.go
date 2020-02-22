@@ -91,8 +91,8 @@ func (r FutureListTransactionsResult) Receive() ([]btcjson.ListTransactionsResul
 // the returned instance.
 //
 // See ListTransactions for the blocking version and more details.
-func (c *Client) ListTransactionsAsync(account string) FutureListTransactionsResult {
-	cmd := btcjson.NewListTransactionsCmd(&account, nil, nil, nil)
+func (c *Client) ListTransactionsAsync(account *string, includeWatchOnly bool) FutureListTransactionsResult {
+	cmd := btcjson.NewListTransactionsCmd(account, nil, nil, &includeWatchOnly)
 	return c.sendCmd(cmd)
 }
 
@@ -100,8 +100,8 @@ func (c *Client) ListTransactionsAsync(account string) FutureListTransactionsRes
 //
 // See the ListTransactionsCount and ListTransactionsCountFrom to control the
 // number of transactions returned and starting point, respectively.
-func (c *Client) ListTransactions(account string) ([]btcjson.ListTransactionsResult, error) {
-	return c.ListTransactionsAsync(account).Receive()
+func (c *Client) ListTransactions(account *string, includeWatchOnly bool) ([]btcjson.ListTransactionsResult, error) {
+	return c.ListTransactionsAsync(account, includeWatchOnly).Receive()
 }
 
 // ListTransactionsCountAsync returns an instance of a type that can be used to
@@ -109,8 +109,8 @@ func (c *Client) ListTransactions(account string) ([]btcjson.ListTransactionsRes
 // function on the returned instance.
 //
 // See ListTransactionsCount for the blocking version and more details.
-func (c *Client) ListTransactionsCountAsync(account string, count int) FutureListTransactionsResult {
-	cmd := btcjson.NewListTransactionsCmd(&account, &count, nil, nil)
+func (c *Client) ListTransactionsCountAsync(account *string, count int, includeWatchOnly bool) FutureListTransactionsResult {
+	cmd := btcjson.NewListTransactionsCmd(account, &count, nil, &includeWatchOnly)
 	return c.sendCmd(cmd)
 }
 
@@ -119,8 +119,8 @@ func (c *Client) ListTransactionsCountAsync(account string, count int) FutureLis
 //
 // See the ListTransactions and ListTransactionsCountFrom functions for
 // different options.
-func (c *Client) ListTransactionsCount(account string, count int) ([]btcjson.ListTransactionsResult, error) {
-	return c.ListTransactionsCountAsync(account, count).Receive()
+func (c *Client) ListTransactionsCount(account *string, count int, includeWatchOnly bool) ([]btcjson.ListTransactionsResult, error) {
+	return c.ListTransactionsCountAsync(account, count, includeWatchOnly).Receive()
 }
 
 // ListTransactionsCountFromAsync returns an instance of a type that can be used
@@ -128,8 +128,8 @@ func (c *Client) ListTransactionsCount(account string, count int) ([]btcjson.Lis
 // function on the returned instance.
 //
 // See ListTransactionsCountFrom for the blocking version and more details.
-func (c *Client) ListTransactionsCountFromAsync(account string, count, from int) FutureListTransactionsResult {
-	cmd := btcjson.NewListTransactionsCmd(&account, &count, &from, nil)
+func (c *Client) ListTransactionsCountFromAsync(account *string, count, from int, includeWatchOnly bool) FutureListTransactionsResult {
+	cmd := btcjson.NewListTransactionsCmd(account, &count, &from, &includeWatchOnly)
 	return c.sendCmd(cmd)
 }
 
@@ -137,8 +137,8 @@ func (c *Client) ListTransactionsCountFromAsync(account string, count, from int)
 // to the passed count while skipping the first 'from' transactions.
 //
 // See the ListTransactions and ListTransactionsCount functions to use defaults.
-func (c *Client) ListTransactionsCountFrom(account string, count, from int) ([]btcjson.ListTransactionsResult, error) {
-	return c.ListTransactionsCountFromAsync(account, count, from).Receive()
+func (c *Client) ListTransactionsCountFrom(account *string, count, from int, includeWatchOnly bool) ([]btcjson.ListTransactionsResult, error) {
+	return c.ListTransactionsCountFromAsync(account, count, from, includeWatchOnly).Receive()
 }
 
 // FutureListUnspentResult is a future promise to deliver the result of a
