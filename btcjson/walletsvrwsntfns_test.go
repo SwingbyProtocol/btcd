@@ -21,6 +21,7 @@ import (
 func TestWalletSvrWsNtfns(t *testing.T) {
 	t.Parallel()
 
+	feeJson := json.Number("0.0001")
 	tests := []struct {
 		name         string
 		newNtfn      func() (interface{}, error)
@@ -81,8 +82,8 @@ func TestWalletSvrWsNtfns(t *testing.T) {
 					Address:           "1Address",
 					BIP125Replaceable: "unknown",
 					Category:          "send",
-					Amount:            1.5,
-					Fee:               btcjson.Float64(0.0001),
+					Amount:            "1.5",
+					Fee:               &feeJson,
 					Confirmations:     1,
 					TxID:              "456",
 					WalletConflicts:   []string{},
@@ -103,8 +104,8 @@ func TestWalletSvrWsNtfns(t *testing.T) {
 					Address:           "1Address",
 					BIP125Replaceable: "unknown",
 					Category:          "send",
-					Amount:            1.5,
-					Fee:               btcjson.Float64(0.0001),
+					Amount:            "1.5",
+					Fee:               &feeJson,
 					Confirmations:     1,
 					TxID:              "456",
 					WalletConflicts:   []string{},

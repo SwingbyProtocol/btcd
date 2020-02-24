@@ -392,9 +392,9 @@ func NewListSinceBlockCmd(blockHash *string, targetConfirms *int, includeWatchOn
 // ListTransactionsCmd defines the listtransactions JSON-RPC command.
 type ListTransactionsCmd struct {
 	Account          *string
-	Count            *int    `jsonrpcdefault:"10"`
-	From             *int    `jsonrpcdefault:"0"`
-	IncludeWatchOnly *bool   `jsonrpcdefault:"false"`
+	Count            *int  `jsonrpcdefault:"10"`
+	From             *int  `jsonrpcdefault:"0"`
+	IncludeWatchOnly *bool `jsonrpcdefault:"false"`
 }
 
 // NewListTransactionsCmd returns a new instance which can be used to issue a
