@@ -584,3 +584,10 @@ type ValidateAddressChainResult struct {
 	IsValid bool   `json:"isvalid"`
 	Address string `json:"address,omitempty"`
 }
+
+// EstimateSmartFeeResult models the details data from the estimatesmartfee command.
+type EstimateSmartFeeResult struct {
+	FeeRate json.Number `json:"feerate"`
+	Errors  []string    `json:"errors,omitempty"`
+	Blocks  int64       `json:"blocks"`
+}
