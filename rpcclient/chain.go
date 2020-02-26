@@ -677,7 +677,7 @@ func (r FutureEstimateSmartFeeResult) Receive() (*btcjson.EstimateSmartFeeResult
 //
 // See EstimateSmartFee for the blocking version and more details.
 func (c *Client) EstimateSmartFeeAsync(numBlocks int64) FutureEstimateSmartFeeResult {
-	cmd := btcjson.NewEstimateFeeCmd(numBlocks)
+	cmd := btcjson.NewEstimateSmartFeeCmd(numBlocks)
 	return c.sendCmd(cmd)
 }
 
